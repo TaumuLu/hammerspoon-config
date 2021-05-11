@@ -1,5 +1,5 @@
 -- 引入公共模块，全局变量的方式使用
-require 'plugins.common.index'
+require 'plugins.common'
 
 require 'plugins.autoReload'
 require 'plugins.posMouse'

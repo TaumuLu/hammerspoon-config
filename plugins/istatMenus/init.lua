@@ -8,7 +8,7 @@ function obj:start()
   if obj.menubar == nil then
     obj.menubar = hs.menubar.new()
   end
-  obj.icon = hs.image.imageFromPath('config/resources/network-menubar.png'):size({ w = 5, h = 100 })
+  obj.icon = hs.image.imageFromPath('resources/network-menubar.png'):size({ w = 5, h = 100 })
   obj.menubar:returnToMenuBar()
   obj:rescan()
 end
@@ -124,3 +124,7 @@ function obj:rescan()
 end
 
 obj:start()
+
+hs.wifi.watcher.new(function ()
+  obj:rescan()
+end):start()
