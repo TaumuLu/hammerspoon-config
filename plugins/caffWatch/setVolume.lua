@@ -6,7 +6,17 @@
 -- hs.execute('osascript -e 'set volume 10'')
 
 local function setVolumeOutput(value)
+  if value == nil then
+    value = 50
+  end
   hs.execute('osascript -e "set volume output volume "'..value)
+end
+
+local function setVolumeInput(value)
+  if value == nil then
+    value = 100
+  end
+  hs.execute('osascript -e "set volume input volume "'..value)
 end
 
 local function setVolumeMuted(value)
@@ -21,8 +31,18 @@ local function getVolume(isConnected, volume)
   if volume ~= nil then
     return volume
   end
+  local date = os.date('*t')
+  local hour = date.hour
+  -- local min = date.min
+  -- local wday = date.wday
+
   if not not isConnected then
     return 50
+  end
+
+  if hour >= 23
+  or hour <= 6 then
+    return 15
   end
   return 30
 end
@@ -55,27 +75,8 @@ local function setVolume(isMute, volume)
       return setVolumeMuted(true)
     end
   end
-  return setVolumeOutput(volume)
-end
-
--- 根据时间判断是否静音
-local function timeTrigger()
-  local date = os.date('*t')
-  local hour = date.hour
-  local min = date.min
-  local wday = date.wday
-  local isMute = false
-
-  if (
-    wday > 1 and
-    wday < 7 and
-    hour >= 9 and
-    hour < 19
-  ) then
-    isMute = true
-  end
-
-  setVolume(isMute)
+  setVolumeOutput(volume)
+  setVolumeInput()
 end
 
 -- 根据 wifi 名判断是否静音

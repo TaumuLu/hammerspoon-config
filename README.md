@@ -3,13 +3,50 @@ My Hammerspoon config
 
 ## Get started
 1. Install Hammerspoon first.
-2. git clone https://github.com/TaumuLu/hammerspoon-config ~/.hammerspoon
+2. `git clone https://github.com/TaumuLu/hammerspoon-config ~/.hammerspoon`
 3. Reload the configutation.
 
 ## Keep update
 `cd ~/.hammerspoon && git pull`
 
-## Feature
+### 目录
+- appWatch 监听切换 app 进入/离开时执行一些操作，index.lua 为入口文件
+  - finderApp
+    - 绑定快捷键 cmd+d 删除操作
+    - 绑定快捷键 cmd+x/cmd+v 剪切操作
+  - hideApp
+    - 隐藏 app 快捷键绑定，暂无用
+  - safariApp
+    - 绑定 cmd+alt+j 切换开发者工具，统一 chrome 快捷键
+  - switchTab
+    - 绑定快捷键 cmd+alt+left/right 切换多个 tab，适用于 finder/safari
+  - yuqueWeb
+    - 为浏览器的语雀提供的脚本
+    - 目的是粘贴文本时不带样式，同时保留统一 url 类型的粘贴样式
+- caffWatch 监听电脑锁屏/休眠时执行一些操作，index.lua 为入口文件
+  - connectAirPods
+    - 屏幕锁定解锁自动开启/关闭蓝牙
+    - 同时绑定快捷键连接蓝牙设备，通过 name 变量定义要连接的设备名称
+    - alt+l 自动连接 airpods，alt+shift+l 自动断开
+  - killApp
+    - 睡眠时杀死一些 app 防止耗电，比如 ios 模拟器就很耗电
+  - setVolume
+    - 解锁时自动设置声音大小，会根据当前 wifi 名判断环境是否需要开启音量
+- autoReload
+  - 修改脚本后自动加载 hammerspoon
+- posMouse
+  - 多显示器快速切换定位鼠标
+  - alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
+- stateCheck
+  - 检查 hammerspoon 状态，提供快捷键显示/隐藏 dock 图标，方便调试
+- resetLaunch
+   - 检测 app 路径是否有改动，有改动会重置 launch 并重开 Dock 进程
+- hotkey
+  - 绑定全局快捷键
+  - 目前有 cmd+l 对齐 win 的锁屏快捷键
+  - 目前有 cmd+h 隐藏当前 app 快捷键
+
+## App
 
 ### SizeUp
 

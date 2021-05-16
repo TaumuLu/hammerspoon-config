@@ -143,11 +143,17 @@ hs.hotkey.bind({'ctrl', 'cmd'}, 'right', hs.fnutils.partial(sizeup, 'right'))
 hs.hotkey.bind({'ctrl', 'cmd'}, 'up',    hs.fnutils.partial(sizeup, 'up'))
 hs.hotkey.bind({'ctrl', 'cmd'}, 'down',  hs.fnutils.partial(sizeup, 'down'))
 
+-- 上下左右微调
+-- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'left',  hs.fnutils.partial(sizeup, 'upper-left'))
+-- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'right', hs.fnutils.partial(sizeup, 'lower-right'))
+-- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'up',    hs.fnutils.partial(sizeup, 'upper-right'))
+-- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
+
 -- 上下左右对角
-hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'left',  hs.fnutils.partial(sizeup, 'upper-left'))
-hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'right', hs.fnutils.partial(sizeup, 'lower-right'))
-hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'up',    hs.fnutils.partial(sizeup, 'upper-right'))
-hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
+hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'left',  hs.fnutils.partial(sizeup, 'upper-left'))
+hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'right', hs.fnutils.partial(sizeup, 'lower-right'))
+hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'up',    hs.fnutils.partial(sizeup, 'upper-right'))
+hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
 
 -- 居中、重置尺寸居中、全屏、切换上一状态
 hs.hotkey.bind({'ctrl', 'cmd'}, 'N', hs.fnutils.partial(sizeup, 'center'))

@@ -27,13 +27,13 @@ folder="config"
 
 mkdir -p "$HOME/.hammerspoon"
 
-ln -sfn $PWD "$HOME/.hammerspoon/$folder"
+ln -sfn $PWD "$HOME/.hammerspoon"
 
-require="require('${folder}')"
+# require="require('${folder}')"
 
-if ! hasStr $require ~/.hammerspoon/init.lua; then
-  echo "$require -- Load Hammerspoon bits from https://github.com/TaumuLu/hammerspoon-config" >> ~/.hammerspoon/init.lua
-fi
+# if ! hasStr $require ~/.hammerspoon/init.lua; then
+#   echo "$require -- Load Hammerspoon bits from https://github.com/TaumuLu/hammerspoon-config" >> ~/.hammerspoon/init.lua
+# fi
 
 killall Hammerspoon || true
 
