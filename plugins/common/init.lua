@@ -53,6 +53,7 @@ local workWifi = {
 
 function IsWorkEnv()
   local ssid = hs.wifi.currentNetwork()
+  Log('wifi ssid:', ssid)
   local flag = false
   if ssid then
     for _, value in pairs(workWifi) do

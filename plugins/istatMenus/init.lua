@@ -62,36 +62,38 @@ local function setMenu()
   local menuitems_table = {}
   if obj.interface then
     local interface_detail = hs.network.interfaceDetails(obj.interface)
-    if interface_detail.AirPort then
-      local ssid = interface_detail.AirPort.SSID
+    if interface_detail.Link.Active then
+      if interface_detail.AirPort then
+        local ssid = interface_detail.AirPort.SSID or ''
+        table.insert(menuitems_table, {
+          title = 'SSID: '..ssid,
+          tooltip = 'Copy SSID to clipboard',
+          fn = function() hs.pasteboard.setContents(ssid) end
+        })
+      end
+      if interface_detail.IPv4 then
+        local ipv4 = interface_detail.IPv4.Addresses[1]
+        table.insert(menuitems_table, {
+          title = 'IPv4: '..ipv4,
+          tooltip = 'Copy IPv4 to clipboard',
+          fn = function() hs.pasteboard.setContents(ipv4) end
+        })
+      end
+      if interface_detail.IPv6 then
+        local ipv6 = interface_detail.IPv6.Addresses[1]
+        table.insert(menuitems_table, {
+          title = 'IPv6: '..ipv6,
+          tooltip = 'Copy IPv6 to clipboard',
+          fn = function() hs.pasteboard.setContents(ipv6) end
+        })
+      end
+      local macaddr = hs.execute('ifconfig '..obj.interface..' | grep ether | awk \'{print $2}\'')
       table.insert(menuitems_table, {
-        title = 'SSID: '..ssid,
-        tooltip = 'Copy SSID to clipboard',
-        fn = function() hs.pasteboard.setContents(ssid) end
+        title = 'MAC Addr: '..macaddr,
+        tooltip = 'Copy MAC Address to clipboard',
+        fn = function() hs.pasteboard.setContents(macaddr) end
       })
     end
-    if interface_detail.IPv4 then
-      local ipv4 = interface_detail.IPv4.Addresses[1]
-      table.insert(menuitems_table, {
-        title = 'IPv4: '..ipv4,
-        tooltip = 'Copy IPv4 to clipboard',
-        fn = function() hs.pasteboard.setContents(ipv4) end
-      })
-    end
-    if interface_detail.IPv6 then
-      local ipv6 = interface_detail.IPv6.Addresses[1]
-      table.insert(menuitems_table, {
-        title = 'IPv6: '..ipv6,
-        tooltip = 'Copy IPv6 to clipboard',
-        fn = function() hs.pasteboard.setContents(ipv6) end
-      })
-    end
-    local macaddr = hs.execute('ifconfig '..obj.interface..' | grep ether | awk \'{print $2}\'')
-    table.insert(menuitems_table, {
-      title = 'MAC Addr: '..macaddr,
-      tooltip = 'Copy MAC Address to clipboard',
-      fn = function() hs.pasteboard.setContents(macaddr) end
-    })
   end
   table.insert(menuitems_table, {
     title = 'Rescan Network Interfaces',
@@ -126,5 +128,8 @@ end
 obj:start()
 
 hs.wifi.watcher.new(function ()
-  obj:rescan()
+  -- 延迟一会执行不然获取不到状态
+  hs.timer.doAfter(1, function()
+    obj:rescan()
+  end)
 end):start()

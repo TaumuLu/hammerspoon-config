@@ -51,3 +51,12 @@ My Hammerspoon config
 ### SizeUp
 
 ### IstatMenus
+
+## 参考项目
+- [Hammerspoon Spoons](https://github.com/Hammerspoon/Spoons)
+- [awesome-hammerspoon](https://github.com/ashfinal/awesome-hammerspoon)
+- https://github.com/jasonrudolph/keyboard
+
+### 其他项目
+- https://github.com/Tao93/NetTool
+- https://github.com/QaQAdrian/monitor

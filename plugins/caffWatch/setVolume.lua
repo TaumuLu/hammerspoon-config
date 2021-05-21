@@ -92,6 +92,14 @@ Event:on(Event.keys[1], function (isConnected)
   end)
 end)
 
+-- 监听 wifi 变化
+SetVolumeWifiWatch = hs.wifi.watcher.new(function ()
+  local ssid = hs.wifi.currentNetwork()
+  if ssid ~= nil then
+    setTrigger()
+  end
+end):start()
+
 -- 默认加载时执行一次
 setTrigger()
 
