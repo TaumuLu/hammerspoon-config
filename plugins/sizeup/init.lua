@@ -38,8 +38,10 @@ local function showTips(name)
   -- hs.alert.closeAll()
   -- hs.alert.showWithImage('', img:size({ w = 120, h = 1000 }), 0.5)
   destroyCanvas()
+  local mainScreen = hs.screen.mainScreen()
+  local mainRes = mainScreen:fullFrame()
   local text = formatUpperStr(name)
-  canvas = hs.canvas.new({x=0, y=0, w=0, h=0})
+  canvas = hs.canvas.new(mainRes)
   canvas:appendElements(
     {
       type = 'rectangle',
@@ -59,13 +61,11 @@ local function showTips(name)
       textAlignment = 'center',
       frame = { x = '0', y = '0.7', w = '1', h = '1' }
     })
-  local mainScreen = hs.screen.mainScreen()
-  local mainRes = mainScreen:fullFrame()
   local w = 210
   local h = 210
   canvas:frame({
-      x = (mainRes.w - w) / 2,
-      y = (mainRes.h - h) / 2 - 26,
+      x = (mainRes.w - w) / 2 + mainRes.x,
+      y = (mainRes.h - h) / 2 - 26 + mainRes.y,
       w = w,
       h = h
   })
@@ -96,13 +96,10 @@ local function sizeup(pos)
   local newrect
   local isMove = true
 
+  -- 当前布局信息
   local curSize = win:size()
   local curTopLeft = win:topLeft()
-
   local curRect = { curTopLeft.x, curTopLeft.y, curSize.w, curSize.h }
-  if pos ~= 'snap-back' then
-    prevRect = curRect
-  end
 
   local value = posTable[pos]
 
@@ -121,7 +118,7 @@ local function sizeup(pos)
     -- 标题高度 24
     local titleHeight = 24
     -- 计算居中
-    win:setTopLeft({ x = (frame.w - curSize.w) / 2, y = titleHeight + (frame.h - curSize.h) / 2 })
+    win:setTopLeft({ x = (frame.w - curSize.w) / 2 + frame.x, y = titleHeight + (frame.h - curSize.h) / 2 + frame.y })
     -- centerOnScreen 会包含 dock 高度
     -- win:centerOnScreen()
     isMove = false
@@ -132,6 +129,17 @@ local function sizeup(pos)
 
   if isMove then
     win:move(newrect)
+  end
+
+  -- 更新后的布局信息
+  local nextSize = win:size()
+  local nextTopLeft = win:topLeft()
+  local nextRect = { nextTopLeft.x, nextTopLeft.y, nextSize.w, nextSize.h }
+
+  -- 如果布局没变化则不更新上一次的布局信息
+  local isEqual = IsEqual(curRect, nextRect);
+  if pos ~= 'snap-back' and not isEqual then
+    prevRect = curRect
   end
 
   showTips(pos)

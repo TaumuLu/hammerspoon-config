@@ -110,3 +110,24 @@ function Inspect(tab)
   local str = Concat('----------inspect----------\n', '===', hs.inspect(tab))
   PrintStyledtext(str, 'red')
 end
+
+function GetTableLen(t)
+  local count = 0
+  for _ in pairs(t) do count = count + 1 end
+  return count
+end
+
+function IsEqual(table1, table2)
+  local len1 = GetTableLen(table1)
+  local len2 = GetTableLen(table2)
+  if len1 ~= len2 then
+    return false
+  end
+
+  for k, v in pairs(table1) do
+    if v ~= table2[k] then
+      return false
+    end
+  end
+  return true
+end
