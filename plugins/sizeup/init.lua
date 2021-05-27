@@ -33,14 +33,17 @@ local function destroyCanvas()
 end
 
 -- 自定义提示
-local function showTips(name)
+local function showTips(name, title)
   local img = hs.image.imageFromPath('resources/sizeup/'..name..'.png')
+  if title == nil then
+    title = name
+  end
   -- hs.alert.closeAll()
   -- hs.alert.showWithImage('', img:size({ w = 120, h = 1000 }), 0.5)
   destroyCanvas()
   local mainScreen = hs.screen.mainScreen()
   local mainRes = mainScreen:fullFrame()
-  local text = formatUpperStr(name)
+  local text = formatUpperStr(title)
   canvas = hs.canvas.new(mainRes)
   canvas:appendElements(
     {
@@ -102,6 +105,7 @@ local function sizeup(pos)
   local curRect = { curTopLeft.x, curTopLeft.y, curSize.w, curSize.h }
 
   local value = posTable[pos]
+  local title = pos
 
   if value ~= nil then
     newrect = value
@@ -125,6 +129,26 @@ local function sizeup(pos)
   elseif pos =='snap-back' then
     newrect = prevRect
     prevRect = curRect
+  elseif string.sub(pos, 0, 6) == 'screen'  then
+    isMove = false
+    if pos == 'screen-up' then
+      pos = 'up'
+      win:moveOneScreenNorth()
+    elseif pos == 'screen-down' then
+      pos = 'down'
+      win:moveOneScreenSouth()
+    elseif pos == 'screen-left' then
+      pos = 'left'
+      win:moveOneScreenWest()
+    elseif pos == 'screen-right' then
+      pos = 'right'
+      win:moveOneScreenEast()
+    end
+    -- 把鼠标也切换过去
+    screen = win:screen()
+    frame = screen:frame()
+    local center = hs.geometry.rectMidPoint(frame)
+    hs.mouse.setAbsolutePosition(center)
   end
 
   if isMove then
@@ -142,7 +166,7 @@ local function sizeup(pos)
     prevRect = curRect
   end
 
-  showTips(pos)
+  showTips(pos, title)
 end
 
 -- 上下左右对半
@@ -157,6 +181,12 @@ hs.hotkey.bind({'ctrl', 'cmd'}, 'down',  hs.fnutils.partial(sizeup, 'down'))
 -- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'up',    hs.fnutils.partial(sizeup, 'upper-right'))
 -- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
 
+-- 上下左右切换屏幕
+hs.hotkey.bind({'ctrl', 'alt'}, 'left',  hs.fnutils.partial(sizeup, 'screen-left'))
+hs.hotkey.bind({'ctrl', 'alt'}, 'right', hs.fnutils.partial(sizeup, 'screen-right'))
+hs.hotkey.bind({'ctrl', 'alt'}, 'up',    hs.fnutils.partial(sizeup, 'screen-up'))
+hs.hotkey.bind({'ctrl', 'alt'}, 'down',  hs.fnutils.partial(sizeup, 'screen-down'))
+
 -- 上下左右对角
 hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'left',  hs.fnutils.partial(sizeup, 'upper-left'))
 hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'right', hs.fnutils.partial(sizeup, 'lower-right'))
@@ -164,7 +194,7 @@ hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'up',    hs.fnutils.partial(sizeup, 'uppe
 hs.hotkey.bind({'ctrl', 'cmd', 'alt'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
 
 -- 居中、重置尺寸居中、全屏、切换上一状态
-hs.hotkey.bind({'ctrl', 'cmd'}, 'N', hs.fnutils.partial(sizeup, 'center'))
-hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'N', hs.fnutils.partial(sizeup, 'center-resize'))
-hs.hotkey.bind({'ctrl', 'cmd'}, 'M', hs.fnutils.partial(sizeup, 'full-screen'))
+hs.hotkey.bind({'ctrl', 'cmd'}, 'n', hs.fnutils.partial(sizeup, 'center'))
+hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'n', hs.fnutils.partial(sizeup, 'center-resize'))
+hs.hotkey.bind({'ctrl', 'cmd'}, 'm', hs.fnutils.partial(sizeup, 'full-screen'))
 hs.hotkey.bind({'ctrl', 'cmd'}, '/', hs.fnutils.partial(sizeup, 'snap-back'))
