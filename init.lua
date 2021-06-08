@@ -10,7 +10,7 @@ require 'plugins.hotkey'
 require 'plugins.appWatch'
 require 'plugins.caffWatch'
 
-require 'plugins.istatMenus'
+-- require 'plugins.istatMenus'
 require 'plugins.sizeup'
 
 -- -- 加载 Spoons

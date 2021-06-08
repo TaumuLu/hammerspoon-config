@@ -131,3 +131,14 @@ function IsEqual(table1, table2)
   end
   return true
 end
+
+function StartWith(str, val)
+  local len = #val
+  return string.sub(str, 0, len) == val
+end
+
+function EndWith(str, val)
+  local len = #val
+  local strLen = #str
+  return string.sub(str, strLen - len + 1, strLen) == val
+end

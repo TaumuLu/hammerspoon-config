@@ -48,7 +48,8 @@ return {
   screensDidLock = function ()
     -- hs.battery.isCharged 不可靠，会返回 nil
     -- 已连接电源情况下不关闭蓝牙
-    if (not string.find(Execute('pmset -g batt | head -n 1'), 'AC Power')) then
+    -- if (not string.find(Execute('pmset -g batt | head -n 1'), 'AC Power'))
+    if hs.battery.powerSource() ~= 'AC Power' then
       local isWorkEnv = IsWorkEnv()
       if isWorkEnv then
         bluetoothSwitch(0)

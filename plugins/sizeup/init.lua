@@ -51,19 +51,47 @@ local function showTips(name, title)
       action = 'fill',
       fillColor = { hex = '#000', alpha = 0.5 },
       roundedRectRadii = { xRadius = 20, yRadius = 20 },
-    }, {
-      type = 'image',
-      image = img,
-      frame = getCenterFrame({ w = 0.56, h = 0.5, y = 0.12 }),
-      imageAlpha = 1
-    }, {
+    }
+  )
+  if img ~= nil then
+    canvas:appendElements(
+      {
+        type = 'image',
+        image = img,
+        frame = getCenterFrame({ w = 0.56, h = 0.5, y = 0.12 }),
+        imageAlpha = 1
+      }
+    )
+  else
+    canvas:appendElements(
+      {
+        type = 'rectangle',
+        action = 'stroke',
+        strokeWidth = 6,
+        frame = getCenterFrame({ w = 0.5, h = 0.44, y = 0.15 }),
+        strokeColor = { hex = '#fff', alpha = 1 },
+        roundedRectRadii = { xRadius = 20, yRadius = 20 },
+      },
+      {
+        type = 'rectangle',
+        action = 'stroke',
+        strokeWidth = 5,
+        frame = getCenterFrame({ w = 0.15, h = 0.15, y = 0.3 }),
+        strokeColor = { hex = '#fff', alpha = 1 },
+        roundedRectRadii = { xRadius = 20, yRadius = 20 },
+      }
+    )
+  end
+  canvas:appendElements(
+    {
       type = 'text',
       text = text,
       textColor = { hex = '#fff' },
       strokeWidth = 0.5,
       textAlignment = 'center',
       frame = { x = '0', y = '0.7', w = '1', h = '1' }
-    })
+    }
+  )
   local w = 210
   local h = 210
   canvas:frame({
@@ -109,6 +137,7 @@ local function sizeup(pos)
 
   if value ~= nil then
     newrect = value
+  -- 居中
   elseif pos == 'center' or pos == 'center-resize' then
     if pos == 'center-resize' then
       local w = 0.5
@@ -119,17 +148,17 @@ local function sizeup(pos)
     -- 设置回图标
     pos = 'center'
     curSize = win:size()
-    -- 标题高度 24
-    local titleHeight = 24
     -- 计算居中
-    win:setTopLeft({ x = (frame.w - curSize.w) / 2 + frame.x, y = titleHeight + (frame.h - curSize.h) / 2 + frame.y })
+    win:setTopLeft({ x = (frame.w - curSize.w) / 2 + frame.x, y = (frame.h - curSize.h) / 2 + frame.y })
     -- centerOnScreen 会包含 dock 高度
     -- win:centerOnScreen()
     isMove = false
+  -- 恢复之前的状态
   elseif pos =='snap-back' then
     newrect = prevRect
     prevRect = curRect
-  elseif string.sub(pos, 0, 6) == 'screen'  then
+  -- 移动屏幕
+  elseif StartWith(pos, 'screen') then
     isMove = false
     if pos == 'screen-up' then
       pos = 'up'
@@ -149,6 +178,62 @@ local function sizeup(pos)
     frame = screen:frame()
     local center = hs.geometry.rectMidPoint(frame)
     hs.mouse.setAbsolutePosition(center)
+  -- 放大缩小
+  elseif StartWith(pos, 'zoom') then
+    isMove = false
+    local scale = curSize.w / curSize.h
+    local w = frame.w * 0.1
+    local h = w / scale
+    -- 计算中心
+    local originX = curTopLeft.x + curSize.w / 2
+    local originY = curTopLeft.y + curSize.h / 2
+    if pos == 'zoom-in' then
+      w = curSize.w + w
+      h = curSize.h + h
+    elseif pos == 'zoom-out' then
+      w = curSize.w - w
+      h = curSize.h - h
+    end
+    local x = math.floor(originX - w / 2)
+    local y = math.floor(originY - h / 2)
+    -- 不允许超出
+    if w >= frame.w then
+      w = frame.w
+      x = 0
+    end
+    if h >= frame.h then
+      h = frame.h
+      y = 0
+    end
+    -- 要先设置中心再设置宽高
+    win:setTopLeft({ x, y })
+    win:setSize(w, h)
+  -- 移动
+  elseif StartWith(pos, 'move') then
+    isMove = false
+    local scale = 0.1
+    local x = frame.w * scale
+    local y = frame.w * scale
+    if pos == 'move-left' then
+      x = curTopLeft.x - x
+      y = curTopLeft.y
+    elseif pos == 'move-right' then
+      x = curTopLeft.x + x
+      y = curTopLeft.y
+    elseif pos == 'move-up' then
+      x = curTopLeft.x
+      y = curTopLeft.y - y
+    elseif pos == 'move-down' then
+      x = curTopLeft.x
+      y = curTopLeft.y + y
+    end
+    local maxX = frame.w - curSize.w
+    local maxY = frame.h - curSize.h
+    if x < 0 then x = 0 end
+    if x > maxX then x = maxX end
+    if y < 0 then y = 0 end
+    if y > maxY then y = maxY end
+    win:setTopLeft({ x, y })
   end
 
   if isMove then
@@ -175,11 +260,11 @@ hs.hotkey.bind({'ctrl', 'cmd'}, 'right', hs.fnutils.partial(sizeup, 'right'))
 hs.hotkey.bind({'ctrl', 'cmd'}, 'up',    hs.fnutils.partial(sizeup, 'up'))
 hs.hotkey.bind({'ctrl', 'cmd'}, 'down',  hs.fnutils.partial(sizeup, 'down'))
 
--- 上下左右微调
--- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'left',  hs.fnutils.partial(sizeup, 'upper-left'))
--- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'right', hs.fnutils.partial(sizeup, 'lower-right'))
--- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'up',    hs.fnutils.partial(sizeup, 'upper-right'))
--- hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'down',  hs.fnutils.partial(sizeup, 'lower-left'))
+-- 上下左右移动
+hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'left',  hs.fnutils.partial(sizeup, 'move-left'))
+hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'right', hs.fnutils.partial(sizeup, 'move-right'))
+hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'up',    hs.fnutils.partial(sizeup, 'move-up'))
+hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'down',  hs.fnutils.partial(sizeup, 'move-down'))
 
 -- 上下左右切换屏幕
 hs.hotkey.bind({'ctrl', 'alt'}, 'left',  hs.fnutils.partial(sizeup, 'screen-left'))
@@ -198,3 +283,7 @@ hs.hotkey.bind({'ctrl', 'cmd'}, 'n', hs.fnutils.partial(sizeup, 'center'))
 hs.hotkey.bind({'ctrl', 'cmd', 'shift'}, 'n', hs.fnutils.partial(sizeup, 'center-resize'))
 hs.hotkey.bind({'ctrl', 'cmd'}, 'm', hs.fnutils.partial(sizeup, 'full-screen'))
 hs.hotkey.bind({'ctrl', 'cmd'}, '/', hs.fnutils.partial(sizeup, 'snap-back'))
+
+-- 放大缩小
+hs.hotkey.bind({'ctrl', 'cmd'}, '=', hs.fnutils.partial(sizeup, 'zoom-in'))
+hs.hotkey.bind({'ctrl', 'cmd'}, '-', hs.fnutils.partial(sizeup, 'zoom-out'))
