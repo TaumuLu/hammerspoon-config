@@ -3,9 +3,10 @@ require 'plugins.common'
 
 require 'plugins.autoReload'
 require 'plugins.posMouse'
-require 'plugins.stateCheck'
 require 'plugins.resetLaunch'
 require 'plugins.hotkey'
+
+require 'plugins.hsSetting'
 
 require 'plugins.appWatch'
 require 'plugins.caffWatch'

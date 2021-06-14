@@ -6,6 +6,7 @@ hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()
   -- hs.notify.new({title='Hammerspoon launch', informativeText='Boss, at your service'}):send()
 end)
 
+-- 测试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 't', function()
   hs.alert.show('test')
   -- local app = hs.window.desktop():application()
