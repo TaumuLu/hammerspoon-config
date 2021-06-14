@@ -1,14 +1,15 @@
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()
-  hs.alert('Hello World from Hammerspoon')
-  -- speaker = hs.speech.new()
-  -- speaker:speak('Hammerspoon is online')
-  -- hs.notify.new({title='Hammerspoon launch', informativeText='Boss, at your service'}):send()
+  hs.urlevent.openURL('https://www.hammerspoon.org/docs/index.html')
 end)
 
 -- 测试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 't', function()
   hs.alert.show('test')
+  -- hs.alert('Hello World from Hammerspoon')
+  -- speaker = hs.speech.new()
+  -- speaker:speak('Hammerspoon is online')
+  -- hs.notify.new({title='Hammerspoon launch', informativeText='Boss, at your service'}):send()
   -- local app = hs.window.desktop():application()
   -- hs.tabs.enableForApp(app)
   -- Inspect(hs.window.orderedWindows())
