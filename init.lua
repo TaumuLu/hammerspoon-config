@@ -25,3 +25,6 @@ require 'plugins.sizeup'
 -- for _, v in pairs(Hspoon_list) do
 --     hs.loadSpoon(v)
 -- end
+
+-- hs.watchable https://www.hammerspoon.org/docs/hs.watchable.html
+-- hs.fnutils https://www.hammerspoon.org/docs/hs.fnutils.html
