@@ -42,7 +42,7 @@ local function getVolume(isConnected, volume)
 
   if hour >= 23
   or hour <= 6 then
-    return 15
+    return 20
   end
   return 30
 end

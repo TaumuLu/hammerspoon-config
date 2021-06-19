@@ -124,6 +124,7 @@ local function sizeup(pos)
   local win = hs.window.focusedWindow()
   local screen = win:screen()
   local frame = screen:frame()
+  -- local app = win:application()
   local newrect
   local isMove = true
 
@@ -160,6 +161,11 @@ local function sizeup(pos)
   -- 移动屏幕
   elseif StartWith(pos, 'screen') then
     isMove = false
+    local isSetFullScreen = GetTableLen(hs.screen.allScreens()) > 1 and win:isFullScreen()
+    if isSetFullScreen then
+      win:setFullScreen(false)
+      win:move(posTable['full-screen'])
+    end
     if pos == 'screen-up' then
       pos = 'up'
       win:moveOneScreenNorth()
@@ -178,6 +184,13 @@ local function sizeup(pos)
     frame = screen:frame()
     local center = hs.geometry.rectMidPoint(frame)
     hs.mouse.setAbsolutePosition(center)
+    -- 设置回全屏
+    if isSetFullScreen then
+      -- 延迟1秒，否则有问题
+      hs.timer.doAfter(1, function()
+        win:setFullScreen(true)
+      end)
+    end
   -- 放大缩小
   elseif StartWith(pos, 'zoom') then
     isMove = false
