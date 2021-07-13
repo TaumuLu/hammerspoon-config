@@ -18,7 +18,7 @@ function ExecBlueutilCmd(params, noExec)
 end
 
 function FindDeviceId(keyword)
-  return ExecBlueutilCmd("--recent | grep '"..keyword.."' | awk '{print $2}' | cut -d ',' -f 1")
+  return ExecBlueutilCmd("--recent | grep '"..keyword.."' | head -n 1 | awk '{print $2}' | cut -d ',' -f 1")
 end
 
 -- 缓存设备 id 信息
