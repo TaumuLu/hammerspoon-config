@@ -42,9 +42,9 @@ local function getVolume(isConnected, volume)
 
   if hour >= 0
   or hour <= 6 then
-    return 20
+    return 35
   end
-  return 30
+  return 45
 end
 
 local function hasConnected()

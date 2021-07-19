@@ -8,6 +8,17 @@ function Execute(cmd)
   return Trim(hs.execute(cmd))
 end
 
+function StartWith(str, val)
+  local len = #val
+  return string.sub(str, 0, len) == val
+end
+
+function EndWith(str, val)
+  local len = #val
+  local strLen = #str
+  return string.sub(str, strLen - len + 1, strLen) == val
+end
+
 function ExecBlueutilCmd(params, noExec)
   local execCmd = '/usr/local/bin/blueutil '
   local cmd = '[ -x '..execCmd..' ] && '..execCmd..(params)
@@ -48,7 +59,8 @@ end
 local workWifi = {
   'bytedance',
   'Nanshan',
-  'WIFI-'
+  'WIFI-',
+  '2020',
 }
 
 function IsWorkEnv()
@@ -57,7 +69,7 @@ function IsWorkEnv()
   local flag = false
   if ssid then
     for _, value in pairs(workWifi) do
-      if string.find(ssid:lower(), value:lower()) then
+      if StartWith(ssid:lower(), value:lower()) then
         flag = true
         break
       end
@@ -130,15 +142,4 @@ function IsEqual(table1, table2)
     end
   end
   return true
-end
-
-function StartWith(str, val)
-  local len = #val
-  return string.sub(str, 0, len) == val
-end
-
-function EndWith(str, val)
-  local len = #val
-  local strLen = #str
-  return string.sub(str, strLen - len + 1, strLen) == val
 end
