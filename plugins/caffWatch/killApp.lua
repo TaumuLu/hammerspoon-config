@@ -11,6 +11,8 @@ end
 
 return {
   screensDidSleep = function ()
-    killApp('com.apple.iphonesimulator')
+    if not LinkPower() then
+      killApp('com.apple.iphonesimulator')
+    end
   end
 }

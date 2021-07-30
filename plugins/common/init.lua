@@ -32,6 +32,10 @@ function FindDeviceId(keyword)
   return ExecBlueutilCmd("--recent | grep '"..keyword.."' | head -n 1 | awk '{print $2}' | cut -d ',' -f 1")
 end
 
+function LinkPower()
+  return hs.battery.powerSource() == 'AC Power'
+end
+
 -- 缓存设备 id 信息
 local deviceIdMap = {}
 
