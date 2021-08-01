@@ -9,12 +9,8 @@ return {
   },
   enable = function()
     hideAction:enable()
-    -- switchTabLeft:enable()
-    -- switchTabRight:enable()
   end,
   disable = function()
     hideAction:disable()
-    -- switchTabLeft:disable()
-    -- switchTabRight:disable()
   end
 }
