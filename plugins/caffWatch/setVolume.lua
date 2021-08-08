@@ -81,8 +81,7 @@ end
 
 -- 根据 wifi 名判断是否静音
 local function setTrigger()
-  local isWorkEnv = IsWorkEnv()
-  setVolume(isWorkEnv)
+  setVolume(not IsHomeEnv())
 end
 
 local timer

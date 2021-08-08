@@ -60,26 +60,39 @@ function BlueutilIsConnected(name, callback)
   return isConnected
 end
 
-local workWifi = {
-  'bytedance',
-  'Nanshan',
-  'WIFI-',
-  '2020',
-}
-
-function IsWorkEnv()
+local function hasWifi(wifiName)
   local ssid = hs.wifi.currentNetwork()
   Log('wifi ssid:', ssid)
   local flag = false
   if ssid then
-    for _, value in pairs(workWifi) do
+    for _, value in pairs(wifiName) do
       if StartWith(ssid:lower(), value:lower()) then
-        flag = true
+        flag = not flag
         break
       end
     end
   end
   return flag
+end
+
+local workWifi = {
+  'bytedance',
+  'Nanshan',
+  'WIFI-',
+  '2020',
+  'WXsisyphe'
+}
+
+function IsWorkEnv()
+  return hasWifi(workWifi)
+end
+
+local homeWifi = {
+  'ziroom'
+}
+
+function IsHomeEnv()
+  return hasWifi(homeWifi)
 end
 
 function LoopWait(condition, callback, time)
