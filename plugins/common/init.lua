@@ -88,7 +88,10 @@ function IsWorkEnv()
 end
 
 local homeWifi = {
-  'ziroom'
+  'ziroom',
+  'Taumu',
+  'MI6',
+  'pangzi'
 }
 
 function IsHomeEnv()
