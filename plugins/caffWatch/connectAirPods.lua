@@ -19,7 +19,9 @@ local function handleDevice(connect)
   return function ()
     BlueutilIsConnected(name, function (isConnected, id)
       if isConnected ~= value then
-        ExecBlueutilCmd(param..' '..id)
+        -- fix --disconnect add --info params
+        -- https://github.com/toy/blueutil/issues/58
+        ExecBlueutilCmd(param..' '..id..' --info '..id)
 
         -- 连接/断开后发布消息
         LoopWait(function ()

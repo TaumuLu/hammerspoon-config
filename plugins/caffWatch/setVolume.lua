@@ -60,7 +60,7 @@ local function hasConnected()
     uid = string.sub(uid, 0, index - 1)
   end
 
-  return id == uid
+  return string.lower(id) == string.lower(uid)
 end
 
 local function setVolume(isMute, volume)
