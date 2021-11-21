@@ -110,7 +110,6 @@ function LoopWait(condition, callback, time, count)
   local timer
   local num = 1
   timer = hs.timer.doEvery(time, function ()
-    hs.alert(num)
     if num >= count then
       timer:stop()
     end
