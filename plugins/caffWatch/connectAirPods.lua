@@ -6,7 +6,7 @@ local function bluetoothSwitch(state)
   end
 end
 
-local name = 'Taumu的AirPods'
+local name = 'Taumu的AirPods3'
 
 local function handleDevice(connect)
   local param = '--connect'

@@ -29,7 +29,7 @@ function ExecBlueutilCmd(params, noExec)
 end
 
 function FindDeviceId(keyword)
-  return ExecBlueutilCmd("--connected | grep '"..keyword.."' | head -n 1 | awk '{print $2}' | cut -d ',' -f 1")
+  return ExecBlueutilCmd("--paired | grep '"..keyword.."' | head -n 1 | awk '{print $2}' | cut -d ',' -f 1")
 end
 
 function LinkPower()
@@ -98,17 +98,29 @@ function IsHomeEnv()
   return hasWifi(homeWifi)
 end
 
-function LoopWait(condition, callback, time)
+function LoopWait(condition, callback, time, count)
   if time == nil then
     time = 1
   end
+  -- 执行次数
+  if count == nil then
+    count = 10
+  end
+
   local timer
+  local num = 1
   timer = hs.timer.doEvery(time, function ()
+    hs.alert(num)
+    if num >= count then
+      timer:stop()
+    end
     local flag = condition()
     if flag then
       timer:stop()
       callback()
     end
+
+    num = num + 1
   end)
 end
 
