@@ -1,11 +1,13 @@
 local connectAirPods = require 'plugins.caffWatch.connectAirPods'
 local killApp = require 'plugins.caffWatch.killApp'
 local setVolume = require 'plugins.caffWatch.setVolume'
+local brightness = require 'plugins.caffWatch.brightness'
 
 local watcher = {
   connectAirPods,
   killApp,
-  setVolume
+  setVolume,
+  brightness
 }
 
 local function findKey(eventType)
