@@ -43,7 +43,9 @@ function FindDeviceIdByName(name)
   local id = deviceIdMap[name]
   if id == nil then
     id = FindDeviceId(name)
-    deviceIdMap[name] = id
+    if id ~= nil then
+      deviceIdMap[name] = id
+    end
   end
   return id
 end
