@@ -4,13 +4,15 @@ local switchTab = require 'plugins.appWatch.switchTab'
 local finder = require 'plugins.appWatch.finderApp'
 local safari = require 'plugins.appWatch.safariApp'
 local hideApp = require 'plugins.appWatch.closeWin'
+local fullScreen = require 'plugins.appWatch.fullScreen'
 
 local watcher = {
   yuqueWeb,
   switchTab,
   hideApp,
   finder,
-  safari
+  safari,
+  fullScreen
 }
 
 local function trigger(object, name, ...)
@@ -59,30 +61,32 @@ local prevApp
 local function applicationWatcher(appName, eventType, appObject)
   if (eventType == hs.application.watcher.activated) then
     local bundleID = appObject:bundleID()
+    local lBundleID = string.lower(bundleID)
     -- print(bundleID)
     for id, list in pairs(appMap) do
+      local lId = string.lower(id)
       -- 启用当前激活 app 脚本
-      if id == bundleID then
+      if lId == lBundleID then
         for _, item in ipairs(list) do
-          trigger(item, 'enable', bundleID)
+          trigger(item, 'enable', lBundleID)
         end
       -- 禁用上一个激活 app 的脚本
-      elseif id == prevApp then
+      elseif lId == prevApp then
         for _, item in ipairs(list) do
-          trigger(item, 'disable', bundleID)
+          trigger(item, 'disable', lBundleID)
         end
       end
     end
     -- for _, v in ipairs(watcher) do
     --   local appIds = v.id
 
-    --   if hasValue(appIds, bundleID) then
-    --     trigger(v, 'enable', bundleID)
+    --   if hasValue(appIds, lBundleID) then
+    --     trigger(v, 'enable', lBundleID)
     --   elseif hasValue(appIds, prevApp) then
-    --     trigger(v, 'disable', bundleID)
+    --     trigger(v, 'disable', lBundleID)
     --   end
     -- end
-    prevApp = bundleID
+    prevApp = lBundleID
   end
 end
 

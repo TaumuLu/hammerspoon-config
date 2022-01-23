@@ -36,3 +36,11 @@ hs.hotkey.bind({'cmd'}, 'h', function ()
     apps:hide()
   end
 end)
+
+-- hs.hotkey.bind({'cmd', 'ctrl'}, 'f', function ()
+--   local apps = hs.application.frontmostApplication()
+--   local win = apps:focusedWindow()
+--   local isFullScreen = win:isFullScreen()
+
+--   win:setFullScreen(not isFullScreen)
+-- end)

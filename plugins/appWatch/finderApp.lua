@@ -72,24 +72,24 @@ do shell script "echo " & quoted form of POSIX path of currentDir
 
 local paths = {}
 
-colseAction = hs.hotkey.new({'cmd'}, 'w', function ()
-  colseAction:disable()
+CloseAction = hs.hotkey.new({'cmd'}, 'w', function ()
+  CloseAction:disable()
   local success,result,desc = hs.osascript.applescript(getCurrentDir)
   if success then
     table.insert(paths, result)
     Inspect(paths)
   end
   hs.eventtap.keyStroke({'cmd'}, 'w')
-  colseAction:enable()
+  CloseAction:enable()
 end)
 
-reopenPath = hs.hotkey.new({'cmd', 'shift'}, 't', function ()
-  reopenPath:disable()
+ReopenPath = hs.hotkey.new({'cmd', 'shift'}, 't', function ()
+  ReopenPath:disable()
   local path = table.remove(paths)
   if path ~= nil then
     -- 先打开一个新 tab
     hs.eventtap.keyStroke({'cmd'}, 't')
-    reopenPath:enable()
+    ReopenPath:enable()
     -- 打开文件路径
     local success = hs.osascript.applescript([[
       tell application "Finder"
@@ -99,7 +99,7 @@ reopenPath = hs.hotkey.new({'cmd', 'shift'}, 't', function ()
     ]])
   else
     hs.alert('没有关闭的历史路径')
-    reopenPath:enable()
+    ReopenPath:enable()
   end
 end)
 
@@ -109,8 +109,8 @@ return {
     deleteAction:enable()
     cutAction:enable()
     PasteAction:enable()
-    colseAction:enable()
-    reopenPath:enable()
+    CloseAction:enable()
+    ReopenPath:enable()
     -- switchTabLeft:enable()
     -- switchTabRight:enable()
   end,
@@ -118,8 +118,8 @@ return {
     deleteAction:disable()
     cutAction:disable()
     PasteAction:disable()
-    colseAction:disable()
-    reopenPath:disable()
+    CloseAction:disable()
+    ReopenPath:disable()
     -- switchTabLeft:disable()
     -- switchTabRight:disable()
   end
