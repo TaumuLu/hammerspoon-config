@@ -35,14 +35,5 @@ local function reloadApp(paths, flagTables)
   end
 end
 
-local timer = nil
-AppChangeWatcher = hs.pathwatcher.new(watchPath, function (paths, flagTables)
-  if timer then
-    timer:stop()
-    timer = nil
-  end
-  timer = hs.timer.doAfter(5, function()
-    reloadApp(paths, flagTables)
-  end)
-end)
+AppChangeWatcher = hs.pathwatcher.new(watchPath, Debounce(reloadApp, 5))
 AppChangeWatcher:start()

@@ -1,5 +1,8 @@
--- 引入公共模块，全局变量的方式使用
-require 'plugins.common'
+-- 引入配置
+require 'config'
+
+-- 引入工具模块，全局变量的方式使用
+require 'plugins.utils'
 
 require 'plugins.autoReload'
 require 'plugins.posMouse'

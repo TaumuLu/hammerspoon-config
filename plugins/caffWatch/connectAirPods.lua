@@ -6,8 +6,6 @@ local function bluetoothSwitch(state)
   end
 end
 
-local name = 'Taumu的AirPods3'
-
 local function handleDevice(connect)
   local param = '--connect'
   local value = '1'
@@ -17,21 +15,28 @@ local function handleDevice(connect)
   end
 
   return function ()
-    BlueutilIsConnected(name, function (isConnected, id)
+    BlueutilIsConnected(function (isConnected, id)
       if isConnected ~= value then
         -- fix --disconnect add --info params
         -- https://github.com/toy/blueutil/issues/58
         ExecBlueutilCmd(param..' '..id..' --info '..id)
 
         -- 连接/断开后发布消息
-        LoopWait(function ()
-          -- 直接修改，避免下面的回调多查询一次
-          isConnected = BlueutilIsConnected(name)
-          return isConnected == value
-        end, function ()
-          -- 连接返回 true 未连接返回 false
-          Event:emit(Event.keys[1], isConnected == '1')
-        end)
+        -- LoopWait(function ()
+        --   -- 直接修改，避免下面的回调多查询一次
+        --   isConnected = BlueutilIsConnected()
+        --   return isConnected == value
+        -- end, function ()
+        --   -- 连接返回 true 未连接返回 false
+        --   Event:emit(Event.keys[1], isConnected == '1')
+        -- end)
+      elseif value == '1' then
+        -- 查找并设置为默认输入输出设备
+        local device = hs.audiodevice.findDeviceByUID(GetDeviceId(string.upper(id)))
+        if device ~= nil then
+          device:setDefaultInputDevice()
+          device:setDefaultOutputDevice()
+        end
       end
     end)
   end
@@ -76,10 +81,11 @@ return {
   screensDidUnlock = function ()
     -- 打开蓝牙，并等待打开后再连接 airpods
     bluetoothSwitch(1)
-    LoopWait(function ()
-      return ExecBlueutilCmd('--power') == '1'
-    end, function ()
-      connectDevice()
-    end)
+    -- 直接连接如果范围内不存在设备时会导致进程卡住一段时间
+    -- LoopWait(function ()
+    --   return ExecBlueutilCmd('--power') == '1'
+    -- end, function ()
+    --   connectDevice()
+    -- end)
   end
 }

@@ -47,25 +47,17 @@ local function getVolume(isConnected, volume)
   return 45
 end
 
+-- 直接对比默认输出设备是否和蓝牙连接的设备是否相同
 local function hasConnected()
-  local id = FindDeviceId('connected ')
-  if string.len(id) == 0 then
-    return false
-  end
-
-  -- 对比默认输出设备是否和蓝牙连接的设备相同
-  local uid = hs.audiodevice.defaultOutputDevice():uid()
-  local index = string.find(uid, ':')
-  if index ~= nil then
-    uid = string.sub(uid, 0, index - 1)
-  end
-
-  return string.lower(id) == string.lower(uid)
+  local deviceId = GetDeviceId()
+  return string.lower(AirPodsId) == string.lower(deviceId)
 end
 
-local function setVolume(isMute, volume)
+-- 根据 wifi 名判断是否静音
+local setTrigger = Debounce(function()
+  local isMute = not IsHomeEnv()
   local isConnected = hasConnected()
-  volume = getVolume(isConnected, volume)
+  local volume = getVolume(isConnected)
   Log('isMute', isMute)
   Log('isConnected', isConnected)
   Log('volume', volume)
@@ -77,21 +69,16 @@ local function setVolume(isMute, volume)
   end
   setVolumeOutput(volume)
   setVolumeInput()
-end
+end, 0.5)
 
--- 根据 wifi 名判断是否静音
-local function setTrigger()
-  setVolume(not IsHomeEnv())
-end
-
-local timer
--- 监听蓝牙设备 airpods 的连接变化
-Event:on(Event.keys[1], function (isConnected)
-  timer:stop()
-  timer = hs.timer.doAfter(2, function()
-    setTrigger()
-  end)
-end)
+-- local timer
+-- -- 监听蓝牙设备 airpods 的连接变化
+-- Event:on(Event.keys[1], function (isConnected)
+--   timer:stop()
+--   timer = hs.timer.doAfter(2, function()
+--     setTrigger()
+--   end)
+-- end)
 
 -- 监听 wifi 变化
 SetVolumeWifiWatch = hs.wifi.watcher.new(function ()
@@ -100,6 +87,12 @@ SetVolumeWifiWatch = hs.wifi.watcher.new(function ()
     setTrigger()
   end
 end):start()
+
+-- 监听音频设备变化
+hs.audiodevice.watcher.setCallback(function ()
+  setTrigger()
+end)
+hs.audiodevice.watcher.start()
 
 -- 默认加载时执行一次
 setTrigger()

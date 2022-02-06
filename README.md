@@ -26,7 +26,7 @@ My Hammerspoon config
 - caffWatch 监听电脑锁屏/休眠时执行一些操作，index.lua 为入口文件
   - connectAirPods
     - 屏幕锁定解锁自动开启/关闭蓝牙
-    - 同时绑定快捷键连接蓝牙设备，通过 name 变量定义要连接的设备名称
+    - 同时绑定快捷键连接蓝牙设备
     - alt+l 自动连接 airpods，alt+shift+l 自动断开
   - killApp
     - 睡眠时杀死一些 app 防止耗电，比如 ios 模拟器就很耗电
@@ -45,6 +45,8 @@ My Hammerspoon config
   - 绑定全局快捷键
   - 目前有 cmd+l 对齐 win 的锁屏快捷键
   - 目前有 cmd+h 隐藏当前 app 快捷键
+- config
+  - 配置文件，AirpodsId 及 wifi 名
 
 ## App
 
