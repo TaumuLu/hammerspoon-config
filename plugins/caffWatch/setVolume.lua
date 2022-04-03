@@ -5,16 +5,22 @@
 -- end
 -- hs.execute('osascript -e 'set volume 10'')
 
+local volumeValue = {
+  Airpods = 40,
+  AirpodsInput = 100,
+  Speaker = 35
+}
+
 local function setVolumeOutput(value)
   if value == nil then
-    value = 50
+    value = volumeValue.Airpods
   end
   hs.execute('osascript -e "set volume output volume "'..value)
 end
 
 local function setVolumeInput(value)
   if value == nil then
-    value = 100
+    value = volumeValue.AirpodsInput
   end
   hs.execute('osascript -e "set volume input volume "'..value)
 end
@@ -37,14 +43,14 @@ local function getVolume(isConnected, volume)
   -- local wday = date.wday
 
   if not not isConnected then
-    return 50
+    return volumeValue.Airpods
   end
 
   if hour >= 0
   or hour <= 6 then
-    return 35
+    return volumeValue.Speaker
   end
-  return 45
+  return volumeValue.Speaker + 10
 end
 
 -- 直接对比默认输出设备是否和蓝牙连接的设备是否相同

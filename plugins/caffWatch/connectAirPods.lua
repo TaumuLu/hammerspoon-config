@@ -36,20 +36,24 @@ local function handleDevice(connect)
         if device ~= nil then
           device:setDefaultInputDevice()
           device:setDefaultOutputDevice()
+        else
+          -- 断开再重新连接
+          DisconnectDevice()
+          ConnectDevice()
         end
       end
     end)
   end
 end
 
-local connectDevice = handleDevice(true)
-local disconnectDevice = handleDevice(false)
+ConnectDevice = handleDevice(true)
+DisconnectDevice = handleDevice(false)
 
 local hyper = {'alt'}
-hs.hotkey.bind(hyper, 'l', connectDevice)
+hs.hotkey.bind(hyper, 'l', ConnectDevice)
 
 local hyper = {'alt', 'shift'}
-hs.hotkey.bind(hyper, 'l', disconnectDevice)
+hs.hotkey.bind(hyper, 'l', DisconnectDevice)
 
 return {
   screensDidLock = function ()
@@ -85,7 +89,7 @@ return {
     -- LoopWait(function ()
     --   return ExecBlueutilCmd('--power') == '1'
     -- end, function ()
-    --   connectDevice()
+    --   ConnectDevice()
     -- end)
   end
 }
