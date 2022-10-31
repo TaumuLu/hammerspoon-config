@@ -7,7 +7,7 @@
 
 local volumeValue = {
   Airpods = 40,
-  AirpodsInput = 100,
+  Input = 100,
   Speaker = 35
 }
 
@@ -20,7 +20,7 @@ end
 
 local function setVolumeInput(value)
   if value == nil then
-    value = volumeValue.AirpodsInput
+    value = volumeValue.Input
   end
   hs.execute('osascript -e "set volume input volume "'..value)
 end
