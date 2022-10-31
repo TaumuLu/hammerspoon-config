@@ -8,7 +8,7 @@ function Execute(cmd)
 end
 
 function ExecuteBrewCmd(command, params, noExec)
-  local execCmd = '/usr/local/bin/'..command..' '
+  local execCmd = '/opt/homebrew/bin/'..command..' '
   local cmd = '[ -x '..execCmd..' ] && '..execCmd..(params)
   if noExec then
     return cmd

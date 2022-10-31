@@ -6,7 +6,7 @@
 -- hs.execute('osascript -e 'set volume 10'')
 
 local volumeValue = {
-  Airpods = 40,
+  Airpods = 30,
   Input = 100,
   Speaker = 35
 }

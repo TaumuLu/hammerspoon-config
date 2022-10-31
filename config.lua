@@ -1,4 +1,4 @@
-AirPodsId = 'f8-4d-89-49-b6-a2'
+AirPodsId = 'c0-95-6d-c3-21-0e'
 
 WorkWifi = {
   'bytedance',
