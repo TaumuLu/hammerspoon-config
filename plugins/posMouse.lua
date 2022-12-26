@@ -19,12 +19,13 @@ hs.hotkey.bind(hyper, 'a', function()
   if app ~= nil and app:bundleID() == "com.google.Chrome" then
     local win = app:focusedWindow()
     local frame = win:frame()
+    local isFull = win:isFullScreen()
     -- 当前鼠标位置
     local originPoint = hs.mouse.absolutePosition()
 
     -- 在左侧触发右键点击
     local rightPoint = {
-      x = frame.x + (win:isFullScreen() and 0 or 5),
+      x = frame.x + (isFull and 0 or 5),
       y = frame.h / 2
     }
     hs.eventtap.rightClick(rightPoint)
@@ -32,7 +33,7 @@ hs.hotkey.bind(hyper, 'a', function()
     -- 点击菜单翻译按钮位置
     local translatePoint = {
       x = rightPoint.x + 80,
-      y = rightPoint.y + 255
+      y = rightPoint.y + (isFull and 255 or 230)
     }
     hs.eventtap.leftClick(translatePoint)
 
