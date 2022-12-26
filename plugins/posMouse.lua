@@ -36,8 +36,11 @@ hs.hotkey.bind(hyper, 'a', function()
     }
     hs.eventtap.leftClick(translatePoint)
 
+    -- 关闭地址栏翻译弹框
+    hs.eventtap.leftClick(rightPoint)
+
     -- 恢复鼠标初始位置
-    hs.eventtap.leftClick(originPoint)
+    hs.mouse.absolutePosition(originPoint)
   end
 end)
 
