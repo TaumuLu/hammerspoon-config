@@ -7,7 +7,7 @@ local hideApp = require 'plugins.appWatch.closeWin'
 local fullScreen = require 'plugins.appWatch.fullScreen'
 local chrome = require 'plugins.appWatch.chrome'
 local xcode = require 'plugins.appWatch.xcode'
-local hsApp = require 'plugins.appWatch.hsApp'
+local hammer = require 'plugins.appWatch.hammer'
 
 local watcher = {
   yuqueWeb,
@@ -18,7 +18,7 @@ local watcher = {
   fullScreen,
   chrome,
   xcode,
-  hsApp
+  hammer
 }
 
 local function trigger(object, name, ...)
