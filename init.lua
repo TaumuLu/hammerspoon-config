@@ -5,7 +5,6 @@ require 'config'
 require 'plugins.utils'
 
 require 'plugins.autoReload'
-require 'plugins.posMouse'
 require 'plugins.resetLaunch'
 require 'plugins.hotkey'
 

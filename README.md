@@ -34,17 +34,16 @@ My Hammerspoon config
     - 解锁时自动设置声音大小，会根据当前 wifi 名判断环境是否需要开启音量
 - autoReload
   - 修改脚本后自动加载 hammerspoon
-- posMouse
-  - 多显示器快速切换定位鼠标
-  - alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
 - stateCheck
   - 检查 hammerspoon 状态，提供快捷键显示/隐藏 dock 图标，方便调试
 - resetLaunch
    - 检测 app 路径是否有改动，有改动会重置 launch 并重开 Dock 进程
 - hotkey
   - 绑定全局快捷键
-  - 目前有 cmd+l 对齐 win 的锁屏快捷键
-  - 目前有 cmd+h 隐藏当前 app 快捷键
+  - cmd+l 对齐 win 的锁屏快捷键
+  - cmd+h 隐藏当前 app 快捷键
+  - 多显示器快速切换定位鼠标
+    - alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
 - config
   - 配置文件，AirpodsId 及 wifi 名
 

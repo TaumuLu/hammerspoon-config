@@ -5,6 +5,8 @@ local finder = require 'plugins.appWatch.finderApp'
 local safari = require 'plugins.appWatch.safariApp'
 local hideApp = require 'plugins.appWatch.closeWin'
 local fullScreen = require 'plugins.appWatch.fullScreen'
+local chrome = require 'plugins.appWatch.chrome'
+local xcode = require 'plugins.appWatch.xcode'
 
 local watcher = {
   yuqueWeb,
@@ -12,7 +14,9 @@ local watcher = {
   hideApp,
   finder,
   safari,
-  fullScreen
+  fullScreen,
+  chrome,
+  xcode
 }
 
 local function trigger(object, name, ...)
@@ -59,7 +63,7 @@ local appMap = getAppMap(watcher)
 
 local prevApp
 local function applicationWatcher(appName, eventType, appObject)
-  if (eventType == hs.application.watcher.activated) then
+  if (eventType == hs.application.watcher.activated and appObject ~= nil) then
     local bundleID = appObject:bundleID()
     local lBundleID = string.lower(bundleID)
     -- print(bundleID)
@@ -92,3 +96,7 @@ end
 
 AppWatcher = hs.application.watcher.new(applicationWatcher)
 AppWatcher:start()
+
+-- 初始立即执行
+local app = hs.application.frontmostApplication()
+applicationWatcher(app:name(), hs.application.watcher.activated, app)

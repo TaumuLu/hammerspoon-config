@@ -44,3 +44,14 @@ end)
 
 --   win:setFullScreen(not isFullScreen)
 -- end)
+
+-- 切换显示器
+hs.hotkey.bind('alt', '`', function()
+  local screen = hs.mouse.getCurrentScreen()
+  local nextScreen = screen:next()
+  local rect = nextScreen:fullFrame()
+  local center = hs.geometry.rectMidPoint(rect)
+
+  hs.mouse.absolutePosition(center)
+  hs.eventtap.leftClick(center)
+end)
