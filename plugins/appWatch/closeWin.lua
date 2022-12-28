@@ -8,10 +8,7 @@ return {
   id = {
     'com.thewanderingcoel.trojan-qt5'
   },
-  enable = function()
-    closeAction:enable()
-  end,
-  disable = function()
-    closeAction:disable()
-  end
+  hotkeys = {
+    closeAction
+  }
 }

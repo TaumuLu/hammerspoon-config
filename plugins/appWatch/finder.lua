@@ -48,12 +48,12 @@ local isCut = false
 local cutAction = hs.hotkey.new({'cmd'}, 'x', function ()
   local app = hs.application.frontmostApplication()
   local cutMenuItem = app:findMenuItem('剪切')
-  local copyMenuItem = app:findMenuItem('拷贝')
+  local copyMenuItem = app:findMenuItem('拷贝', true)
 
   if cutMenuItem.enabled then
     isCut = false
     app:selectMenuItem('剪切')
-  elseif copyMenuItem.enabled then
+  elseif copyMenuItem == nil or copyMenuItem.enabled then
     isCut = true
     hs.alert('已剪切文件')
     copyCommand()
@@ -127,24 +127,14 @@ end)
 
 return {
   id = appId,
-  enable = function()
-    deleteAction:enable()
-    cutAction:enable()
-    CopyAction:enable()
-    PasteAction:enable()
-    CloseAction:enable()
-    ReopenPath:enable()
-    -- switchTabLeft:enable()
-    -- switchTabRight:enable()
-  end,
-  disable = function()
-    deleteAction:disable()
-    cutAction:disable()
-    CopyAction:disable()
-    PasteAction:disable()
-    CloseAction:disable()
-    ReopenPath:disable()
-    -- switchTabLeft:disable()
-    -- switchTabRight:disable()
-  end
+  hotkeys = {
+    deleteAction,
+    cutAction,
+    CopyAction,
+    PasteAction,
+    CloseAction,
+    ReopenPath,
+    -- switchTabLeft,
+    -- switchTabRight,
+  }
 }

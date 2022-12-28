@@ -7,10 +7,7 @@ return {
   id = {
     'org.hammerspoon.Hammerspoon'
   },
-  enable = function()
-    clearConsole:enable()
-  end,
-  disable = function()
-    clearConsole:disable()
-  end
+  hotkeys = {
+    clearConsole
+  }
 }

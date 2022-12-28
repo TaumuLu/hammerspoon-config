@@ -13,12 +13,8 @@ return {
     safari.id,
     finder.id
   },
-  enable= function()
-    switchTabLeft:enable()
-    switchTabRight:enable()
-  end,
-  disable = function()
-    switchTabLeft:disable()
-    switchTabRight:disable()
-  end
+  hotkeys = {
+    switchTabLeft,
+    switchTabRight
+  }
 }

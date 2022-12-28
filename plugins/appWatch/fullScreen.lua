@@ -10,10 +10,7 @@ return {
   id = {
     'com.google.Chrome'
   },
-  enable = function()
-    fullScreen:enable()
-  end,
-  disable = function()
-    fullScreen:disable()
-  end
+  hotkeys = {
+    fullScreen
+  }
 }

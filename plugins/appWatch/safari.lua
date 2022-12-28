@@ -6,10 +6,7 @@ end)
 
 return {
   id = appId,
-  enable= function()
-    switchTabLeft:enable()
-  end,
-  disable = function()
-    switchTabLeft:disable()
-  end
+  hotkeys = {
+    switchTabLeft
+  }
 }

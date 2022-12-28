@@ -7,10 +7,7 @@ return {
   id = {
     -- 'com.microsoft.rdc.macos'
   },
-  enable = function()
-    hideAction:enable()
-  end,
-  disable = function()
-    hideAction:disable()
-  end
+  hotkeys = {
+    hideAction
+  }
 }

@@ -122,7 +122,7 @@ return {
     -- 'com.apple.Safari',
     'com.google.Chrome.canary'
   },
-  enable = function()
-    -- yuquePaste()
-  end,
+  -- enable = function()
+  --   yuquePaste()
+  -- end,
 }

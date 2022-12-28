@@ -33,10 +33,7 @@ return {
   id = {
     'com.google.Chrome'
   },
-  enable = function()
-    translateAction:enable()
-  end,
-  disable = function()
-    translateAction:disable()
-  end
+  hotkeys = {
+    translateAction
+  },
 }

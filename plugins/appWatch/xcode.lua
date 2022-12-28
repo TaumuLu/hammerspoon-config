@@ -42,22 +42,13 @@ return {
   id = {
     'com.apple.dt.Xcode'
   },
-  enable = function()
-    showPreviousTab:enable()
-    showNextTab:enable()
-    selectColumnUp:enable()
-    selectColumnDown:enable()
-    duplicate:enable()
-    selectNextOccurrence:enable()
-    cut:enable()
-  end,
-  disable = function()
-    showPreviousTab:disable()
-    showNextTab:disable()
-    selectColumnUp:disable()
-    selectColumnDown:disable()
-    duplicate:disable()
-    selectNextOccurrence:disable()
-    cut:disable()
-  end
+  hotkeys = {
+    showPreviousTab,
+    showNextTab,
+    selectColumnUp,
+    selectColumnDown,
+    duplicate,
+    selectNextOccurrence,
+    cut,
+  }
 }

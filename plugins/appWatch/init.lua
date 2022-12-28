@@ -29,6 +29,19 @@ local function trigger(object, name, ...)
   end
 end
 
+local function hotkeyExec(hotkeys, flag)
+  if hotkeys ~= nil then
+    for _, item in ipairs(hotkeys) do
+      if flag then
+        item:enable()
+      else
+        item:disable()
+      end
+    end
+  end
+
+end
+
 -- local function hasValue(appIds, value)
 --     if type(appIds) ~= 'table' then
 --       return appIds == value
@@ -75,11 +88,13 @@ local function applicationWatcher(appName, eventType, appObject)
       if lId == lBundleID then
         for _, item in ipairs(list) do
           trigger(item, 'enable', lBundleID)
+          hotkeyExec(item.hotkeys, true)
         end
       -- 禁用上一个激活 app 的脚本
       elseif lId == prevApp then
         for _, item in ipairs(list) do
           trigger(item, 'disable', lBundleID)
+          hotkeyExec(item.hotkeys, false)
         end
       end
     end
