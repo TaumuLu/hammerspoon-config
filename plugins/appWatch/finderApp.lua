@@ -36,13 +36,34 @@ local deleteAction = hs.hotkey.new({'cmd'}, 'd', function ()
   hs.eventtap.keyStroke({'cmd'}, 'delete')
 end)
 
+local function copyCommand()
+  -- 先禁用，触发相同快捷键后再重启用
+  CopyAction:disable()
+  hs.eventtap.keyStroke({'cmd'}, 'c')
+  CopyAction:enable()
+end
+
 -- command + x -> command + v
 local isCut = false
 local cutAction = hs.hotkey.new({'cmd'}, 'x', function ()
-  isCut = true
-  hs.alert('已剪切文件')
-  hs.eventtap.keyStroke({'cmd'}, 'c')
+  local app = hs.application.frontmostApplication()
+  local cutMenuItem = app:findMenuItem('剪切')
+
+  if cutMenuItem.enabled then
+    isCut = false
+    app:selectMenuItem('剪切')
+  else
+    isCut = true
+    hs.alert('已剪切文件')
+    copyCommand()
+  end
 end)
+
+CopyAction = hs.hotkey.new({'cmd'}, 'c', function ()
+  isCut = false
+  copyCommand()
+end)
+
 
 -- 这里必须设置为全局的函数，否则函数内无法引用到
 PasteAction = hs.hotkey.new({'cmd'}, 'v', function ()
@@ -51,7 +72,7 @@ PasteAction = hs.hotkey.new({'cmd'}, 'v', function ()
     table.insert(modifiers, 'option')
     isCut = false
   end
-  -- 先禁用，触发相同快捷键后再重启用
+
   PasteAction:disable()
   hs.eventtap.keyStroke(modifiers, 'v')
   PasteAction:enable()
@@ -108,6 +129,7 @@ return {
   enable = function()
     deleteAction:enable()
     cutAction:enable()
+    CopyAction:enable()
     PasteAction:enable()
     CloseAction:enable()
     ReopenPath:enable()
@@ -117,6 +139,7 @@ return {
   disable = function()
     deleteAction:disable()
     cutAction:disable()
+    CopyAction:disable()
     PasteAction:disable()
     CloseAction:disable()
     ReopenPath:disable()
