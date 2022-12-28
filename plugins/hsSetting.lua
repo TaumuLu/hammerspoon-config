@@ -19,6 +19,8 @@ local function toggleConsole()
     if state then
       hs.dockicon.hide()
       hs.closeConsole()
+      -- 清理控制台
+      hs.console.clearConsole()
     else
       hs.dockicon.show()
       hs.openConsole(true)
