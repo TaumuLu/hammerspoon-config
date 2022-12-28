@@ -48,11 +48,12 @@ local isCut = false
 local cutAction = hs.hotkey.new({'cmd'}, 'x', function ()
   local app = hs.application.frontmostApplication()
   local cutMenuItem = app:findMenuItem('剪切')
+  local copyMenuItem = app:findMenuItem('拷贝')
 
   if cutMenuItem.enabled then
     isCut = false
     app:selectMenuItem('剪切')
-  else
+  elseif copyMenuItem.enabled then
     isCut = true
     hs.alert('已剪切文件')
     copyCommand()
