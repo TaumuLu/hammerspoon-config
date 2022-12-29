@@ -59,6 +59,14 @@ local foldAll = hs.hotkey.new({'alt'}, 'k', function()
   app:selectMenuItem('Fold Comment Blocks')
 end)
 
+-- brew install --cask swiftformat-for-xcode
+local formatOnSave = hs.hotkey.new({'cmd'}, 's', function()
+  local app = hs.application.frontmostApplication()
+  app:selectMenuItem({'Editor', 'SwiftFormat', 'Format File'})
+  app:selectMenuItem('Save')
+end)
+
+
 return {
   id = {
     'com.apple.dt.Xcode'
@@ -75,5 +83,6 @@ return {
     unfold,
     unfoldAll,
     foldAll,
+    formatOnSave
   }
 }
