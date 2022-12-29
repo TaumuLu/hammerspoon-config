@@ -38,6 +38,27 @@ local cut = hs.hotkey.new({'cmd'}, 'x', function()
   end
 end)
 
+local fold = hs.hotkey.new({'cmd', 'alt'}, '[', function()
+  local app = hs.application.frontmostApplication()
+  app:selectMenuItem('Fold')
+end)
+
+local unfold = hs.hotkey.new({'cmd', 'alt'}, ']', function()
+  local app = hs.application.frontmostApplication()
+  app:selectMenuItem('Unfold')
+end)
+
+local unfoldAll = hs.hotkey.new({'alt', 'shift'}, 'k', function()
+  local app = hs.application.frontmostApplication()
+  app:selectMenuItem('Unfold All')
+end)
+
+local foldAll = hs.hotkey.new({'alt'}, 'k', function()
+  local app = hs.application.frontmostApplication()
+  app:selectMenuItem('Fold Methods & Functions')
+  app:selectMenuItem('Fold Comment Blocks')
+end)
+
 return {
   id = {
     'com.apple.dt.Xcode'
@@ -50,5 +71,9 @@ return {
     duplicate,
     selectNextOccurrence,
     cut,
+    fold,
+    unfold,
+    unfoldAll,
+    foldAll,
   }
 }
