@@ -5,7 +5,7 @@ local finder = require 'plugins.appWatch.finder'
 local safari = require 'plugins.appWatch.safari'
 local hideApp = require 'plugins.appWatch.closeWin'
 local fullScreen = require 'plugins.appWatch.fullScreen'
-local chrome = require 'plugins.appWatch.chrome'
+local Translate = require 'plugins.appWatch.Translate'
 local xcode = require 'plugins.appWatch.xcode'
 local hammer = require 'plugins.appWatch.hammer'
 
@@ -16,7 +16,7 @@ local watcher = {
   finder,
   safari,
   fullScreen,
-  chrome,
+  Translate,
   xcode,
   hammer
 }
@@ -82,6 +82,10 @@ local function applicationWatcher(appName, eventType, appObject)
     local bundleID = appObject:bundleID()
     local lBundleID = string.lower(bundleID)
     -- print(bundleID)
+    if bundleID ~= 'org.hammerspoon.Hammerspoon' then
+      Log('bundleID ', bundleID)
+    end
+
     for id, list in pairs(appMap) do
       local lId = string.lower(id)
       -- 启用当前激活 app 脚本
