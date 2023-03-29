@@ -8,6 +8,7 @@ local fullScreen = require 'plugins.appWatch.fullScreen'
 local Translate = require 'plugins.appWatch.Translate'
 local xcode = require 'plugins.appWatch.xcode'
 local hammer = require 'plugins.appWatch.hammer'
+local autoInput = require 'plugins.appWatch.autoInput'
 
 local watcher = {
   yuqueWeb,
@@ -85,6 +86,8 @@ local function applicationWatcher(appName, eventType, appObject)
     if bundleID ~= 'org.hammerspoon.Hammerspoon' then
       Log('bundleID ', bundleID)
     end
+
+    autoInput(bundleID)
 
     for id, list in pairs(appMap) do
       local lId = string.lower(id)

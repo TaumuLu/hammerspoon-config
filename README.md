@@ -9,29 +9,7 @@ My Hammerspoon config
 ## Keep update
 `cd ~/.hammerspoon && git pull`
 
-### 目录
-- appWatch 监听切换 app 进入/离开时执行一些操作，index.lua 为入口文件
-  - finderApp
-    - 绑定快捷键 cmd+d 删除操作
-    - 绑定快捷键 cmd+x/cmd+v 剪切操作
-  - hideApp
-    - 隐藏 app 快捷键绑定，暂无用
-  - safariApp
-    - 绑定 cmd+alt+j 切换开发者工具，统一 chrome 快捷键
-  - switchTab
-    - 绑定快捷键 cmd+alt+left/right 切换多个 tab，适用于 finder/safari
-  - yuqueWeb
-    - 为浏览器的语雀提供的脚本
-    - 目的是粘贴文本时不带样式，同时保留统一 url 类型的粘贴样式
-- caffWatch 监听电脑锁屏/休眠时执行一些操作，index.lua 为入口文件
-  - connectAirPods
-    - 屏幕锁定解锁自动开启/关闭蓝牙
-    - 同时绑定快捷键连接蓝牙设备
-    - alt+l 自动连接 airpods，alt+shift+l 自动断开
-  - killApp
-    - 睡眠时杀死一些 app 防止耗电，比如 ios 模拟器就很耗电
-  - setVolume
-    - 解锁时自动设置声音大小，会根据当前 wifi 名判断环境是否需要开启音量
+## 目录功能
 - autoReload
   - 修改脚本后自动加载 hammerspoon
 - stateCheck
@@ -47,11 +25,42 @@ My Hammerspoon config
 - config
   - 配置文件，AirpodsId 及 wifi 名
 
-## App
+### caffWatch
+- 监听电脑锁屏/休眠时执行一些操作，index.lua 为入口文件
+- connectAirPods
+  - 屏幕锁定解锁自动开启/关闭蓝牙
+  - 同时绑定快捷键连接蓝牙设备
+  - alt+l 自动连接 airpods，alt+shift+l 自动断开
+- killApp
+  - 睡眠时杀死一些 app 防止耗电，比如 ios 模拟器就很耗电
+- setVolume
+  - 解锁时自动设置声音大小，会根据当前 wifi 名判断环境是否需要开启音量
 
-### SizeUp
+### appWatch
+- 监听切换 app 进入/离开时执行一些操作，index.lua 为入口文件
+- finderApp
+  - 绑定快捷键 cmd+d 删除操作
+  - 绑定快捷键 cmd+x/cmd+v 剪切操作
+- hideApp
+  - 隐藏 app 快捷键绑定，暂无用
+- safariApp
+  - 绑定 cmd+alt+j 切换开发者工具，统一 chrome 快捷键
+- switchTab
+  - 绑定快捷键 cmd+alt+left/right 切换多个 tab，适用于 finder/safari
+- ~~yuqueWeb~~
+  - ~~为浏览器的语雀提供的脚本~~
+  - ~~目的是粘贴文本时不带样式，同时保留统一 url 类型的粘贴样式~~
+- autoInput
+  - 自动切换输入法
+- xcode
+  - 绑定 xcode 快捷键为 vscode 模式
+- translate
+  - 添加浏览器右键翻译快捷键
+- hammers
+  - 添加 Hammerspoon 清空控制台日志快捷键
 
-### IstatMenus
+### sizeup
+- 创建分屏快捷键，和 sizeup 一样的能力
 
 ## 参考项目
 - [Hammerspoon Spoons](https://github.com/Hammerspoon/Spoons)
