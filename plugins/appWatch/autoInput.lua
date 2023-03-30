@@ -23,7 +23,8 @@ local appMap = {
     'com.tencent.xinWeChat.MiniProgram',
     'com.tencent.qq',
     'com.electron.lark',
-    'com.apple.Notes'
+    'com.apple.Notes',
+    'com.lencx.chatgpt'
   }
 }
 

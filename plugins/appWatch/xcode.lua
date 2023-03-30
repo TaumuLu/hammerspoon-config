@@ -66,6 +66,9 @@ local formatOnSave = hs.hotkey.new({'cmd'}, 's', function()
   app:selectMenuItem('Save')
 end)
 
+local showDebugArea = hs.hotkey.new({'cmd'}, 'j', function()
+  hs.eventtap.keyStroke({'cmd', 'shift'}, 'y')
+end)
 
 return {
   id = {
@@ -83,6 +86,7 @@ return {
     unfold,
     unfoldAll,
     foldAll,
-    formatOnSave
+    formatOnSave,
+    showDebugArea
   }
 }
