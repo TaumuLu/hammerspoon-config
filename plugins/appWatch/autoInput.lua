@@ -24,7 +24,9 @@ local appMap = {
     'com.tencent.qq',
     'com.electron.lark',
     'com.apple.Notes',
-    'com.lencx.chatgpt'
+    'com.lencx.chatgpt',
+    'com.google.Chrome',
+    'com.microsoft.edgemac',
   }
 }
 
