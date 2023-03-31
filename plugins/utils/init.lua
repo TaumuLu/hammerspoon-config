@@ -22,10 +22,6 @@ local function hasWifi(wifiName)
   return flag
 end
 
-function IsWorkEnv()
-  return hasWifi(WorkWifi)
-end
-
 function IsHomeEnv()
   return hasWifi(HomeWifi)
 end

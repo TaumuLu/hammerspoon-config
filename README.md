@@ -9,21 +9,24 @@ My Hammerspoon config
 ## Keep update
 `cd ~/.hammerspoon && git pull`
 
-## 目录功能
-- autoReload
+## 脚本
+- autoReload.lua
   - 修改脚本后自动加载 hammerspoon
-- stateCheck
-  - 检查 hammerspoon 状态，提供快捷键显示/隐藏 dock 图标，方便调试
-- resetLaunch
-   - 检测 app 路径是否有改动，有改动会重置 launch 并重开 Dock 进程
-- hotkey
+- hsSetting.lua
+  - 检查 hammerspoon 状态，自定义 hammerspoon 默认设置
+  - 提供快捷键显示/隐藏 dock 图标，方便调试
+- resetLaunch.lua
+   - 检测 app 安装卸载，监听其路径，有改动会重置 launch 并重开 Dock 进程
+- hotkey.lua
   - 绑定全局快捷键
   - cmd+l 对齐 win 的锁屏快捷键
   - cmd+h 隐藏当前 app 快捷键
   - 多显示器快速切换定位鼠标
     - alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
-- config
-  - 配置文件，AirpodsId 及 wifi 名
+
+### config.lua
+- 全局配置文件
+- 配置 AirpodsId 及 wifi 名
 
 ### caffWatch
 - 监听电脑锁屏/休眠时执行一些操作，index.lua 为入口文件
@@ -35,6 +38,8 @@ My Hammerspoon config
   - 睡眠时杀死一些 app 防止耗电，比如 ios 模拟器就很耗电
 - setVolume
   - 解锁时自动设置声音大小，会根据当前 wifi 名判断环境是否需要开启音量
+- brightness
+  - 自动设置亮度
 
 ### appWatch
 - 监听切换 app 进入/离开时执行一些操作，index.lua 为入口文件
@@ -60,7 +65,14 @@ My Hammerspoon config
   - 添加 Hammerspoon 清空控制台日志快捷键
 
 ### sizeup
-- 创建分屏快捷键，和 sizeup 一样的能力
+- 创建分屏快捷键，保持和 sizeup 软件一样的能力
+
+### utils
+- 工具函数库
+- 提供公共方法给其他脚本使用
+
+## resources
+- 资源文件目录，供脚本使用
 
 ## 参考项目
 - [Hammerspoon Spoons](https://github.com/Hammerspoon/Spoons)
