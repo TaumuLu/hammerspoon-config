@@ -55,3 +55,14 @@ hs.hotkey.bind('alt', '`', function()
   hs.mouse.absolutePosition(center)
   hs.eventtap.leftClick(center)
 end)
+
+-- 粘贴为纯文本
+PasteTextHotkey = hs.hotkey.bind({'cmd', 'shift'}, 'v', function()
+  hs.pasteboard.setContents(hs.pasteboard.readString())
+
+  -- 先禁用自己
+  PasteTextHotkey:disable()
+  hs.eventtap.keyStroke({ "cmd" }, "V")
+  -- 粘贴事件结束后再启用自己
+  PasteTextHotkey:enabled()
+end)
