@@ -62,7 +62,7 @@ PasteTextHotkey = hs.hotkey.bind({'cmd', 'shift'}, 'v', function()
 
   -- 先禁用自己
   PasteTextHotkey:disable()
-  hs.eventtap.keyStroke({ "cmd" }, "V")
+  hs.eventtap.keyStroke({'cmd'}, 'v')
   -- 粘贴事件结束后再启用自己
   PasteTextHotkey:enabled()
 end)
