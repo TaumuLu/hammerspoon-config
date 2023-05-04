@@ -24,6 +24,8 @@ My Hammerspoon config
   - 多显示器快速切换定位鼠标
     - alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
   - cmd+shift+v 粘贴为纯文本
+- pasteboard.lua
+  - 监听剪切板复制事件，抹平复制 url 时多余的特定前缀
 
 ### config.lua
 - 全局配置文件

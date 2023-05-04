@@ -16,6 +16,8 @@ require 'plugins.caffWatch'
 -- require 'plugins.istatMenus'
 require 'plugins.sizeup'
 
+require 'plugins.pasteboard'
+
 -- -- 加载 Spoons
 -- -- 定义默认加载的 Spoons
 -- if not Hspoon_list then
