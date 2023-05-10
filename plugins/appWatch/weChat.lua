@@ -4,9 +4,9 @@ return {
   id = id,
   enable = function(_, prevId)
     -- 只有从微信打开的窗口才自动跳转去浏览器
-    if prevId ~= string.lower('com.tencent.xinWeChat') then
-      return
-    end
+    -- if prevId ~= string.lower('com.tencent.xinWeChat') then
+    --   return
+    -- end
 
     -- 延迟 0.5s 等窗口完全打开 ui 可见后再执行
     hs.timer.doAfter(0.5, function()
