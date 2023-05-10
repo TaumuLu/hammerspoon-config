@@ -9,6 +9,7 @@ local Translate = require 'plugins.appWatch.Translate'
 local xcode = require 'plugins.appWatch.xcode'
 local hammer = require 'plugins.appWatch.hammer'
 local autoInput = require 'plugins.appWatch.autoInput'
+local weChat = require 'plugins.appWatch.weChat'
 
 local watcher = {
   yuqueWeb,
@@ -19,7 +20,8 @@ local watcher = {
   fullScreen,
   Translate,
   xcode,
-  hammer
+  hammer,
+  weChat
 }
 
 local function trigger(object, name, ...)
@@ -94,13 +96,13 @@ local function applicationWatcher(appName, eventType, appObject)
       -- 启用当前激活 app 脚本
       if lId == lBundleID then
         for _, item in ipairs(list) do
-          trigger(item, 'enable', lBundleID)
+          trigger(item, 'enable', lBundleID, prevApp)
           hotkeyExec(item.hotkeys, true)
         end
       -- 禁用上一个激活 app 的脚本
       elseif lId == prevApp then
         for _, item in ipairs(list) do
-          trigger(item, 'disable', lBundleID)
+          trigger(item, 'disable', lBundleID, prevApp)
           hotkeyExec(item.hotkeys, false)
         end
       end

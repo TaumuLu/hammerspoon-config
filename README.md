@@ -66,6 +66,8 @@ My Hammerspoon config
   - 添加浏览器右键翻译快捷键
 - hammers
   - 添加 Hammerspoon 清空控制台日志快捷键
+- weChat
+  - 微信点击链接时自动跳转至浏览器打开并关闭原窗口
 
 ### sizeup
 - 创建分屏快捷键，保持和 sizeup 软件一样的能力
