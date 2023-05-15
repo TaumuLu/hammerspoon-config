@@ -20,10 +20,9 @@ hs.hotkey.bind({'cmd'}, 'l', function()
   hs.caffeinate.lockScreen()
 end)
 
--- 隐藏当前 app，有些 app 没有绑定此快捷键，大部分 app 有此功能
-hs.hotkey.bind({'cmd'}, 'h', function ()
-  local apps = hs.application.frontmostApplication()
-  local win = apps:focusedWindow()
+local function hideApp()
+  local app = hs.application.frontmostApplication()
+  local win = app:focusedWindow()
   -- 如果当前程序为全屏展示则直接回桌面
   if win:isFullScreen() then
     local finder = hs.window.desktop():application()
@@ -33,8 +32,23 @@ hs.hotkey.bind({'cmd'}, 'h', function ()
       finder:hide()
     end)
   else
-    apps:hide()
+    hs.alert(app:bundleID())
+    app:hide()
   end
+end
+
+-- 隐藏当前 app，有些 app 没有绑定此快捷键，大部分 app 有此功能
+HideAppHotkey = hs.hotkey.bind({'cmd'}, 'h', function ()
+  local app = hs.application.frontmostApplication()
+  HideAppHotkey:disable()
+  hs.eventtap.keyStroke({'cmd'}, 'h')
+  -- 未隐藏的再执行隐藏逻辑
+  if app:isHidden() ~= true then
+    hs.alert('hide app')
+    hideApp()
+  end
+
+  HideAppHotkey:enable()
 end)
 
 -- hs.hotkey.bind({'cmd', 'ctrl'}, 'f', function ()
@@ -64,5 +78,5 @@ PasteTextHotkey = hs.hotkey.bind({'cmd', 'shift'}, 'v', function()
   PasteTextHotkey:disable()
   hs.eventtap.keyStroke({'cmd'}, 'v')
   -- 粘贴事件结束后再启用自己
-  PasteTextHotkey:enabled()
+  PasteTextHotkey:enable()
 end)
