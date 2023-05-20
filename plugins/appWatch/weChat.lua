@@ -28,7 +28,11 @@ return {
     -- 切换其他应用后自动关闭窗口
     local apps = hs.application.applicationsForBundleID(id)
     for _, app in pairs(apps) do
+      if app == nil then return end
+
       local win = app:focusedWindow()
+      if win == nil then return end
+
       -- 微信小程序不做处理
       if app:name() ~= win:title() then
         return

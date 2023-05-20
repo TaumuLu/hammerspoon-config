@@ -22,7 +22,12 @@ end)
 
 local function hideApp()
   local app = hs.application.frontmostApplication()
+  if app == nil then return end
+
   local win = app:focusedWindow()
+
+  if win == nil then return end
+
   -- 如果当前程序为全屏展示则直接回桌面
   if win:isFullScreen() then
     local finder = hs.window.desktop():application()
