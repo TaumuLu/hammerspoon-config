@@ -43,6 +43,6 @@ return {
     edgeId
   },
   hotkeys = {
-    translateAction
+    -- translateAction
   },
 }

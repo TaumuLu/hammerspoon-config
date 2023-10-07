@@ -4,5 +4,6 @@ HomeWifi = {
   'ziroom',
   'Taumu',
   'MI6',
-  'pangzi'
+  'pangzi',
+  'DXKEAI'
 }

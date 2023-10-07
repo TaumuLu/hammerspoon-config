@@ -64,10 +64,19 @@ local formatOnSave = hs.hotkey.new({'cmd'}, 's', function()
   local app = hs.application.frontmostApplication()
   app:selectMenuItem({'Editor', 'SwiftFormat', 'Format File'})
   app:selectMenuItem('Save')
+  hs.eventtap.keyStroke({'cmd', 'shift'}, 'j')
 end)
 
 local showDebugArea = hs.hotkey.new({'cmd'}, 'j', function()
   hs.eventtap.keyStroke({'cmd', 'shift'}, 'y')
+end)
+
+local openQuickly = hs.hotkey.new({'cmd'}, 'p', function()
+  hs.eventtap.keyStroke({'cmd', 'shift'}, 'o')
+end)
+
+local showRelatedItems = hs.hotkey.new({'cmd', 'shift'}, 't', function()
+  hs.eventtap.keyStroke({'ctrl'}, '1')
 end)
 
 return {
@@ -87,6 +96,8 @@ return {
     unfoldAll,
     foldAll,
     formatOnSave,
-    showDebugArea
+    showDebugArea,
+    openQuickly,
+    showRelatedItems
   }
 }
