@@ -37,7 +37,7 @@ local function hideApp()
       finder:hide()
     end)
   else
-    hs.alert(app:bundleID())
+    -- hs.alert(app:bundleID())
     app:hide()
   end
 end
