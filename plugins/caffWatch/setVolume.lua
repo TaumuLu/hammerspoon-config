@@ -94,9 +94,15 @@ SetVolumeWifiWatch = hs.wifi.watcher.new(function ()
   end
 end):start()
 
+local prevDeviceId = GetDeviceId()
 -- 监听音频设备变化
 hs.audiodevice.watcher.setCallback(function ()
-  setTrigger()
+  local newDeviceId = GetDeviceId()
+  if prevDeviceId ~= newDeviceId then
+    hs.alert('switch audio device')
+    setTrigger()
+  end
+  prevDeviceId = newDeviceId
 end)
 hs.audiodevice.watcher.start()
 
