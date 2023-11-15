@@ -8,8 +8,10 @@ local fullScreen = require 'plugins.appWatch.fullScreen'
 local Translate = require 'plugins.appWatch.Translate'
 local xcode = require 'plugins.appWatch.xcode'
 local hammer = require 'plugins.appWatch.hammer'
-local autoInput = require 'plugins.appWatch.autoInput'
 local weChat = require 'plugins.appWatch.weChat'
+-- local autoInput = require 'plugins.appWatch.autoInput'
+-- local alfredCursorFix = require 'plugins.appWatch.alfredCursorFix'
+
 
 local watcher = {
   yuqueWeb,
@@ -89,7 +91,7 @@ local function applicationWatcher(appName, eventType, appObject)
       Log('bundleID ', bundleID)
     end
 
-    autoInput(bundleID)
+    -- autoInput(bundleID)
 
     for id, list in pairs(appMap) do
       local lId = string.lower(id)

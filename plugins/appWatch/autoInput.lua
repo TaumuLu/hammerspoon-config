@@ -1,5 +1,9 @@
-local function Sougou()
-  hs.keycodes.currentSourceID("com.sogou.inputmethod.sogou.pinyin")
+-- local function Sougou()
+--   hs.keycodes.currentSourceID("com.sogou.inputmethod.sogou.pinyin")
+-- end
+
+local function Chinese()
+  hs.keycodes.currentSourceID("com.apple.inputmethod.SCIM.ITABC")
 end
 
 local function English()
@@ -18,7 +22,7 @@ local appMap = {
     'com.sublimetext.4',
     'com.apple.dt.Xcode'
   },
-  sougou = {
+  chinese = {
     'com.tencent.xinWeChat',
     'com.tencent.xinWeChat.MiniProgram',
     'com.tencent.qq',
@@ -37,7 +41,7 @@ local switchInput = function (boundId)
         if key == 'english' then
           English()
         else
-          Sougou()
+          Chinese()
         end
       end
     end

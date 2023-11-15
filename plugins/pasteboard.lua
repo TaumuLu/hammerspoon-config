@@ -9,6 +9,10 @@ PasteboardWatchr = hs.pasteboard.watcher.new(function(v)
         hs.pasteboard.setContents(url)
       end
     end
+
+    -- local isUrl = IsUrl(str)
+    -- if isUrl then
+    -- end
   end
 end)
 
@@ -22,3 +26,5 @@ PasteboardWatchr:start()
 -- end)
 
 -- Eventtap:start()
+
+-- <meta charset='utf-8'><a href=""></a>

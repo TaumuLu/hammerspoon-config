@@ -56,40 +56,40 @@ local hyper = {'alt', 'shift'}
 hs.hotkey.bind(hyper, 'l', DisconnectDevice)
 
 return {
-  screensDidLock = function ()
-    -- hs.battery.isCharged 不可靠，会返回 nil
-    -- 已连接电源情况下不关闭蓝牙
-    -- if (not string.find(Execute('pmset -g batt | head -n 1'), 'AC Power'))
-    if not LinkPower() then
-      if not IsHomeEnv() then
-        bluetoothSwitch(0)
-      end
-    end
-  end,
-  screensDidSleep = function ()
-    local date = os.date('*t')
-    local hour = date.hour
-    local min = date.min
-    local sec = date.sec
-    -- 夜间关闭蓝牙连接
-    if (
-      hour >= 23 and min > 30 or (
-        hour >= 0 and
-        hour <= 7
-      )
-    ) then
-      Log('夜间关闭蓝牙时间 ', hour, ':', min, ':', sec)
-      bluetoothSwitch(0)
-    end
-  end,
-  screensDidUnlock = function ()
-    -- 打开蓝牙，并等待打开后再连接 airpods
-    bluetoothSwitch(1)
-    -- 直接连接如果范围内不存在设备时会导致进程卡住一段时间
-    -- LoopWait(function ()
-    --   return ExecBlueutilCmd('--power') == '1'
-    -- end, function ()
-    --   ConnectDevice()
-    -- end)
-  end
+  -- screensDidLock = function ()
+  --   -- hs.battery.isCharged 不可靠，会返回 nil
+  --   -- 已连接电源情况下不关闭蓝牙
+  --   -- if (not string.find(Execute('pmset -g batt | head -n 1'), 'AC Power'))
+  --   if not LinkPower() then
+  --     if not IsHomeEnv() then
+  --       bluetoothSwitch(0)
+  --     end
+  --   end
+  -- end,
+  -- screensDidSleep = function ()
+  --   local date = os.date('*t')
+  --   local hour = date.hour
+  --   local min = date.min
+  --   local sec = date.sec
+  --   -- 夜间关闭蓝牙连接
+  --   if (
+  --     hour >= 23 and min > 30 or (
+  --       hour >= 0 and
+  --       hour <= 7
+  --     )
+  --   ) then
+  --     Log('夜间关闭蓝牙时间 ', hour, ':', min, ':', sec)
+  --     bluetoothSwitch(0)
+  --   end
+  -- end,
+  -- screensDidUnlock = function ()
+  --   -- 打开蓝牙，并等待打开后再连接 airpods
+  --   bluetoothSwitch(1)
+  --   -- 直接连接如果范围内不存在设备时会导致进程卡住一段时间
+  --   -- LoopWait(function ()
+  --   --   return ExecBlueutilCmd('--power') == '1'
+  --   -- end, function ()
+  --   --   ConnectDevice()
+  --   -- end)
+  -- end
 }
